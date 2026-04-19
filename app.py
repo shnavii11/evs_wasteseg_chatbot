@@ -135,18 +135,27 @@ hr {
     border-color: #3a8c3a !important;
 }
 
-/* ── Sidebar collapse button → "<" ── */
-[data-testid="collapsedControl"] button span,
-[data-testid="collapsedControl"] button [data-testid="baseButton-label"] {
+/* ── Sidebar collapse/toggle button → "<" ── */
+[data-testid="collapsedControl"] button > *,
+[data-testid="stSidebarCollapseButton"] button > *,
+[data-testid="stSidebarNavCollapseButton"] button > *,
+section[data-testid="stSidebar"] > div:first-child button > * {
+    display: none !important;
     font-size: 0 !important;
-    visibility: hidden;
+    visibility: hidden !important;
 }
-[data-testid="collapsedControl"] button::after {
-    content: "<";
-    font-size: 18px;
-    font-weight: 600;
-    color: #1e5c28;
-    visibility: visible;
+[data-testid="collapsedControl"] button::after,
+[data-testid="stSidebarCollapseButton"] button::after,
+[data-testid="stSidebarNavCollapseButton"] button::after,
+section[data-testid="stSidebar"] > div:first-child button::after {
+    content: "<" !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    color: #1e5c28 !important;
+    line-height: 1 !important;
 }
 
 /* ── Scrollbar ── */
