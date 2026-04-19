@@ -1,5 +1,5 @@
+from groq import Groq
 import streamlit as st
-import ollama
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -7,6 +7,29 @@ st.set_page_config(
     page_icon="♻️",
     layout="centered",
 )
+
+# ── Eco background ────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+body {
+    background-color: #f0f7f0;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(74, 124, 89, 0.04) 0px,
+        rgba(74, 124, 89, 0.04) 2px,
+        transparent 2px,
+        transparent 12px
+    );
+}
+.stApp { background: transparent; }
+.block-container {
+    background: rgba(255,255,255,0.82);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(6px);
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ── Minimal custom styling ────────────────────────────────────────────────────
 st.markdown("""
@@ -77,8 +100,6 @@ HOW TO RESPOND:
 - If asked something unrelated to waste, redirect politely.
 """
 
-MODEL = "llama3.1:8b"
-
 # ── Header ────────────────────────────────────────────────────────────────────
 st.title("♻️ WasteWise")
 st.caption("Ask me how to dispose of anything — I'll tell you where it goes.")
@@ -115,7 +136,7 @@ if prompt:
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Build ollama message history (with system prompt prepended)
+    # Build message history (with system prompt prepended)
     st.session_state.ollama_history.append({
         "role": "user",
         "content": prompt
@@ -130,22 +151,21 @@ if prompt:
         full_response = ""
 
         try:
-            stream = ollama.chat(
-                model=MODEL,
+            client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+            stream = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
                 messages=full_history,
                 stream=True,
+                max_tokens=512
             )
             for chunk in stream:
-                delta = chunk["message"]["content"]
+                delta = chunk.choices[0].delta.content or ""
                 full_response += delta
                 response_box.markdown(full_response + "▌")
             response_box.markdown(full_response)
 
         except Exception as e:
-            full_response = (
-                f"Couldn't reach Ollama — make sure it's running "
-                f"(`ollama serve` in a terminal).\n\nError: `{e}`"
-            )
+            full_response = "Could not reach Groq API — make sure your GROQ_API_KEY is set in Streamlit secrets."
             response_box.error(full_response)
 
     # Save assistant reply
@@ -177,7 +197,7 @@ with st.sidebar:
         st.markdown(f"- {ex}")
 
     st.divider()
-    st.markdown("**Model:** `llama3.1:8b` via Ollama")
+    st.markdown("**Model:** `llama-3.1-8b-instant` via Groq")
     st.markdown("**Project:** EVS Survey on Waste Recycling")
 
     if st.button("Clear chat"):
