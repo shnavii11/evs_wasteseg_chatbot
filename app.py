@@ -135,6 +135,20 @@ hr {
     border-color: #3a8c3a !important;
 }
 
+/* ── Sidebar collapse button → "<" ── */
+[data-testid="collapsedControl"] button span,
+[data-testid="collapsedControl"] button [data-testid="baseButton-label"] {
+    font-size: 0 !important;
+    visibility: hidden;
+}
+[data-testid="collapsedControl"] button::after {
+    content: "<";
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e5c28;
+    visibility: visible;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
