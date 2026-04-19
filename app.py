@@ -8,43 +8,148 @@ st.set_page_config(
     layout="centered",
 )
 
-# ── Eco background ────────────────────────────────────────────────────────────
+# ── Eco pattern background + full UI theme ────────────────────────────────────
 st.markdown("""
 <style>
-body {
-    background-color: #f0f7f0;
-    background-image: repeating-linear-gradient(
-        45deg,
-        rgba(74, 124, 89, 0.04) 0px,
-        rgba(74, 124, 89, 0.04) 2px,
-        transparent 2px,
-        transparent 12px
-    );
-}
-.stApp { background: transparent; }
-.block-container {
-    background: rgba(255,255,255,0.82);
-    border-radius: 16px;
-    padding: 2rem;
-    backdrop-filter: blur(6px);
-}
-</style>
-""", unsafe_allow_html=True)
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
-# ── Minimal custom styling ────────────────────────────────────────────────────
-st.markdown("""
-<style>
-    .block-container { padding-top: 2rem; max-width: 720px; }
-    .stChatMessage { border-radius: 12px; }
-    .insight-card {
-        background: #f0f7f2;
-        border-left: 4px solid #4a7c59;
-        padding: 0.6rem 1rem;
-        border-radius: 6px;
-        margin-bottom: 0.5rem;
-        font-size: 0.88rem;
-        color: #2c2c2c;
-    }
+/* ── Background pattern ── */
+body, .stApp {
+    background-image: url('https://i.pinimg.com/1200x/2b/4d/3a/2b4d3a80dcde98578eac73ce28b20208.jpg');
+    background-size: 420px 420px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+/* ── Main container glass card ── */
+.block-container {
+    background: rgba(253, 252, 245, 0.93) !important;
+    border-radius: 20px !important;
+    padding: 2.2rem 2.4rem !important;
+    max-width: 740px !important;
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(74, 140, 63, 0.18);
+    box-shadow: 0 8px 40px rgba(45, 100, 40, 0.13);
+}
+
+/* ── Title ── */
+h1 {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 600 !important;
+    color: #1e5c28 !important;
+    letter-spacing: -0.5px;
+}
+
+/* ── Caption / subtext ── */
+.stCaptionContainer p, [data-testid="stCaptionContainer"] p {
+    color: #4a7c40 !important;
+    font-size: 0.95rem !important;
+    font-weight: 400;
+}
+
+/* ── Divider ── */
+hr {
+    border-color: rgba(74, 140, 63, 0.2) !important;
+}
+
+/* ── Chat messages ── */
+.stChatMessage {
+    border-radius: 14px !important;
+    background: rgba(245, 250, 244, 0.85) !important;
+    border: 1px solid rgba(74, 140, 63, 0.12) !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+[data-testid="stChatMessageContent"] p {
+    font-family: 'DM Sans', sans-serif !important;
+    color: #1a3320 !important;
+    line-height: 1.65;
+}
+
+/* User message bubble */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background: rgba(74, 140, 63, 0.08) !important;
+    border-color: rgba(74, 140, 63, 0.22) !important;
+}
+
+/* ── Chat input ── */
+[data-testid="stChatInput"] textarea {
+    font-family: 'DM Sans', sans-serif !important;
+    background: rgba(253, 252, 245, 0.97) !important;
+    border: 1.5px solid rgba(74, 140, 63, 0.35) !important;
+    border-radius: 14px !important;
+    color: #1a3320 !important;
+    font-size: 0.95rem !important;
+}
+[data-testid="stChatInput"] textarea:focus {
+    border-color: #3a8c3a !important;
+    box-shadow: 0 0 0 3px rgba(74, 140, 63, 0.12) !important;
+}
+
+/* ── Survey insight card ── */
+.insight-card {
+    background: rgba(232, 247, 232, 0.9);
+    border-left: 4px solid #3a8c3a;
+    padding: 0.75rem 1.1rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    color: #1e4a20;
+    font-family: 'DM Sans', sans-serif;
+    backdrop-filter: blur(4px);
+}
+
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+    background: rgba(240, 248, 238, 0.96) !important;
+    border-right: 1.5px solid rgba(74, 140, 63, 0.15) !important;
+    backdrop-filter: blur(10px);
+}
+[data-testid="stSidebar"] * {
+    font-family: 'DM Sans', sans-serif !important;
+    color: #1e4a20 !important;
+}
+[data-testid="stSidebar"] h2 {
+    font-weight: 600 !important;
+    color: #1e5c28 !important;
+    font-size: 1rem !important;
+}
+[data-testid="stSidebar"] .stMarkdown p {
+    font-size: 0.88rem !important;
+    line-height: 1.8;
+}
+
+/* ── Sidebar button ── */
+[data-testid="stSidebar"] button {
+    background: rgba(74, 140, 63, 0.12) !important;
+    border: 1.5px solid rgba(74, 140, 63, 0.35) !important;
+    color: #1e5c28 !important;
+    border-radius: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease;
+}
+[data-testid="stSidebar"] button:hover {
+    background: rgba(74, 140, 63, 0.22) !important;
+    border-color: #3a8c3a !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(74, 140, 63, 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(74, 140, 63, 0.55); }
+
+/* ── Code / mono spans ── */
+code {
+    background: rgba(74, 140, 63, 0.1) !important;
+    color: #1e5c28 !important;
+    border-radius: 5px !important;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 0.85em !important;
+    padding: 0.1em 0.4em !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -180,18 +285,18 @@ if prompt:
 
 # ── Sidebar: quick prompts + context ─────────────────────────────────────────
 with st.sidebar:
-    st.header("Try asking about...")
+    st.header("🌿 Try asking about...")
     examples = [
-        "old mobile phone",
-        "leftover food / cooked dal",
-        "expired medicines",
-        "plastic carry bags",
-        "broken CFL / tube light",
-        "cardboard boxes",
-        "old clothes",
-        "paint cans",
-        "laptop battery",
-        "used cooking oil",
+        "🔋 old mobile phone",
+        "🍛 leftover food / cooked dal",
+        "💊 expired medicines",
+        "🛍️ plastic carry bags",
+        "💡 broken CFL / tube light",
+        "📦 cardboard boxes",
+        "👕 old clothes",
+        "🪣 paint cans",
+        "🔌 laptop battery",
+        "🫙 used cooking oil",
     ]
     for ex in examples:
         st.markdown(f"- {ex}")
@@ -200,7 +305,7 @@ with st.sidebar:
     st.markdown("**Model:** `llama-3.1-8b-instant` via Groq")
     st.markdown("**Project:** EVS Survey on Waste Recycling")
 
-    if st.button("Clear chat"):
+    if st.button("🗑️ Clear chat"):
         st.session_state.messages = []
         st.session_state.ollama_history = []
         st.rerun()
