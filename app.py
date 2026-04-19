@@ -15,7 +15,7 @@ st.markdown("""
 
 /* ── Background pattern ── */
 body, .stApp {
-    background-image: url('https://i.pinimg.com/1200x/2b/4d/3a/2b4d3a80dcde98578eac73ce28b20208.jpg');
+    background-image: url('https://i.pinimg.com/1200x/bb/c9/1f/bbc91f0b58bbd13a146e5f46792bda52.jpg');
     background-size: 420px 420px;
     background-repeat: repeat;
     background-attachment: fixed;
